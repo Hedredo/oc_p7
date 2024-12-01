@@ -1,0 +1,6 @@
+# Folders
+__pycache__/
+data/
+mlflow/
+
+# Files
