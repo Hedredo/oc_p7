@@ -33,7 +33,7 @@ jobs:
       # Étape 4 : Exécuter les tests avec logs
       - name: Run unittest with logs
         run: |
-          python -m unittest discover -s . -p "test_*.py" -v | tee test_output.log
+          python -m unittest discover -s . -p "./tests/test_*.py" -v | tee test_output.log
 
       # Étape 5 : Télécharger les logs en cas d'échec
       - name: Upload logs
