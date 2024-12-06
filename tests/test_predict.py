@@ -1,4 +1,5 @@
 import unittest
+import mlflow.tensorflow
 import tensorflow as tf
 from predict import custom_standardization, load_model
 
