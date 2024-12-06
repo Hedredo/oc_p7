@@ -1,6 +1,9 @@
 # Folders
 __pycache__/
 data/
-mlflow/
 
-# Files
+# Model
+mlflow/*
+!mlflow/689416981458083287/
+!mlflow/689416981458083287/b5efda2cee954ff1a88923f357bc0525/
+!mlflow/689416981458083287/b5efda2cee954ff1a88923f357bc0525/artifacts/

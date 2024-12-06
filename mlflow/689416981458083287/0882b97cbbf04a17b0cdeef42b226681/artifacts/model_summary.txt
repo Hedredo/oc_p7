@@ -1,0 +1,19 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ text_vectorizer (TextVector  (None, 100)              0         
+ izer)                                                           
+                                                                 
+ embedding (Embedding)       (None, 100, 16)           80000     
+                                                                 
+ global_average_pooling1d (G  (None, 16)               0         
+ lobalAveragePooling1D)                                          
+                                                                 
+ dense (Dense)               (None, 1)                 17        
+                                                                 
+=================================================================
+Total params: 80,017
+Trainable params: 80,017
+Non-trainable params: 0
+_________________________________________________________________
