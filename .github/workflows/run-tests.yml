@@ -3,10 +3,10 @@ name: Run Unit Tests
 on:
   push:
     branches:
-      - main  # Exécuter les tests sur chaque commit dans la branche principale
+      - master  # Exécuter les tests sur chaque commit dans la branche principale
   pull_request:
     branches:
-      - main  # Exécuter les tests sur chaque PR ciblant la branche principale
+      - master  # Exécuter les tests sur chaque PR ciblant la branche principale
 
 jobs:
   test:
