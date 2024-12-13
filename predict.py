@@ -13,5 +13,5 @@ def custom_standardization(tensor):
 # Load the model
 def load_model():
     model_path = "./mlflow/689416981458083287/b5efda2cee954ff1a88923f357bc0525/artifacts/model"
-    model = mlflow.tensorflow.load_model(model_path) # Load the model with the MLflow Keras API
+    model = mlflow.keras.load_model(model_path) # Load the model with the MLflow Keras API
     return model
