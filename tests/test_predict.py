@@ -7,8 +7,6 @@ from predict import custom_standardization, load_model
 class TestPredict(unittest.TestCase):
 
     def setUp(self):
-        print("Variables d'environnement avant chaque test :", os.environ)
-        print("Répertoire actuel:", os.getcwd())
         self.model = load_model()
 
     def test_custom_standardization(self):
