@@ -17,9 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le reste de l'application (code + répertoires)
 COPY . .
-RUN chmod +x /app/script.sh
-# Exposer le port sur lequel l’app écoute
-EXPOSE 80
+
+# Définir la variable d'environnement PORT
+ENV PORT=8000
+
+# Exposer les ports utilisés par l'application
+EXPOSE 80 8000 8501
 
 # Lancer l’application avec Uvicorn (modifier main:app si votre fichier s’appelle différemment)
-CMD ["sh", "-c", "fastapi dev main.py & streamlit run front.py"]
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT & streamlit run front.py --server.port 8501"]
