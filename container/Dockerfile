@@ -22,7 +22,7 @@ COPY . .
 ENV PORT=8000
 
 # Exposer les ports utilisés par l'application
-EXPOSE 80 8000 8501
+EXPOSE 80 8000
 
 # Lancer l’application avec Uvicorn (modifier main:app si votre fichier s’appelle différemment)
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT & streamlit run front.py --server.port 8501"]
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]
