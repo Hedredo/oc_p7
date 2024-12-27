@@ -89,7 +89,7 @@ elif st.session_state.step.value == Step.PREDICT.value:
 
     if response.status_code != 200:
         st.error(
-            "Unable to establish the connection. We will fix the problem ASAP. Please reload the page and try again later."
+            "Unable to establish the connection. We will fix the problem ASAP. Please reload the page to try again later."
         )
         logger.error(
             "Error : API call", extra={
@@ -98,6 +98,7 @@ elif st.session_state.step.value == Step.PREDICT.value:
                     "request": "predict",
                 }
             })
+        st.stop()
     else:
         prediction = response.json()["sentiment"]
     
