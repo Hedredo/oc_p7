@@ -1,0 +1,59 @@
+name: Build & Test & Push Docker Image after modifying the container code
+
+# Déclemenchement du workflow
+on:
+  push:
+    paths:
+      - 'container/**'  # Exécuter le workflow uniquement si le code du conteneur est modifié
+
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  DOCKER_IMAGE_PATH: hedredo/light_app:latest
+
+# Définition des jobs du workflow à exécuter
+jobs:
+  test-build-push:
+    runs-on: ubuntu-latest # Same as the container image
+
+    steps:
+      # Étape 1 : Cloner le dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Étape 2 : Installer Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.16'
+
+      # Étape 3 : Installer les dépendances du conteneur à tester
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./container/requirements.txt
+
+      # Étape 4 : Exécuter les tests avec logs
+      - name: Run unittest with logs
+        run: |
+          python -m unittest discover tests -v > test_output.log
+      
+          # Étape 5 : Télécharger les logs en cas d'échec
+      - name: Upload logs
+        if: failure()  # Exécute cette étape uniquement en cas d'échec
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-logs
+          path: test_output.log
+      
+      # Étape 6 : Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.DOCKER_IMAGE_PATH }} ./container
+
+      # Étape 7 : Push the Docker image
+      - name: Push Docker image
+        run: |
+          echo ${{ env.DOCKER_PASSWORD }} | docker login -u ${{ env.DOCKER_USERNAME }} --password-stdin
+          docker push ${{ env.DOCKER_IMAGE_PATH }}
+      
