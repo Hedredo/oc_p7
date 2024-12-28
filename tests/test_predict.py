@@ -1,32 +1,22 @@
 import unittest
-import os
-import mlflow.tensorflow
-import tensorflow as tf
-from predict import custom_standardization, load_model
+from container.model import predict_sentiment
 
 class TestPredict(unittest.TestCase):
 
-    def setUp(self):
-        self.model = load_model()
-
-    def test_custom_standardization(self):
-        input_text = tf.constant(["Hello @user! Check out http://example.com"])
-        expected_output = tf.constant(["hello check out"])
-        output = custom_standardization(input_text)
-        self.assertTrue(tf.reduce_all(tf.equal(output, expected_output)))
-
-    def test_model_prediction_positive(self):
-        input_text = tf.constant(["I love this product!"])
-        prediction = self.model.predict(input_text)
-        label = "positive" if prediction[0][0] > 0.5 else "negative"
+    def test_predict_sentiment_positive(self):
+        text = "I am happy today!"
+        label = predict_sentiment(text)
         self.assertEqual(label, "positive")
-
-    def test_model_prediction_negative(self):
-        input_text = tf.constant(["I hate this product!"])
-        prediction = self.model.predict(input_text)
-        label = "positive" if prediction[0][0] > 0.5 else "negative"
+    
+    def test_predict_sentiment_negative(self):
+        text = "I am unhappy today!"
+        label = predict_sentiment(text)
         self.assertEqual(label, "negative")
-        
+    
+    def test_predict_sentiment_neutral(self):
+        text = "I am neutral today!"
+        label = predict_sentiment(text)
+        self.assertEqual(label, "neutral")
 
 if __name__ == '__main__':
     unittest.main()

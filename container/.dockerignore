@@ -1,3 +1,4 @@
 # Files and directories to ignore when copying files to the container
 __pycache__
+__init__.py
 notebook.ipynb
