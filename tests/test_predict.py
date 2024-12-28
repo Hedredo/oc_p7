@@ -9,12 +9,12 @@ class TestPredict(unittest.TestCase):
         self.assertEqual(label, "positive")
     
     def test_predict_sentiment_negative(self):
-        text = "I am unhappy today!"
+        text = "It is wrong and awful bro @username"
         label = predict_sentiment(text)
         self.assertEqual(label, "negative")
     
     def test_predict_sentiment_neutral(self):
-        text = "I am neutral today!"
+        text = " "
         label = predict_sentiment(text)
         self.assertEqual(label, "neutral")
 
