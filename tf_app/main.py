@@ -2,16 +2,7 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 import tensorflow as tf
-from model import set_model
-
-@tf.keras.utils.register_keras_serializable(package="custom_text_func", name="custom_standardization")
-def custom_standardization(tensor):
-    tensor = tf.strings.lower(tensor)  # lowercase
-    tensor = tf.strings.regex_replace(tensor, r"@\w+", " ")  # strip mentions
-    tensor = tf.strings.regex_replace(tensor, r"http\S+|www\S+", " ")  # strip urls
-    tensor = tf.strings.regex_replace(tensor, r"[^\w\s\d]", " ")  # strip punctuation
-    tensor = tf.strings.regex_replace(tensor, r"\s{2,}", " ")  # strip multiple spaces
-    return tf.strings.strip(tensor)  # strip leading and trailing spaces
+from model import set_model, custom_standardization
 
 # Load the model
 model = set_model() # Assign the function model_path argument with the another model if needed
