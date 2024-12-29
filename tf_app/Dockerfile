@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Définir la variable d'environnement PORT
-ENV PORT=8000
+ENV PORT=80
 
 # Exposer les ports utilisés par l'application
 EXPOSE 80 8000
