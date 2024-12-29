@@ -2,7 +2,7 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 import tensorflow as tf
-from tf_app.model import set_model
+from model import set_model
 
 @tf.keras.utils.register_keras_serializable(package="custom_text_func", name="custom_standardization")
 def custom_standardization(tensor):

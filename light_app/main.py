@@ -1,7 +1,7 @@
 from typing import Union
 from pydantic import BaseModel
 from fastapi import FastAPI
-from light_app.model import predict_sentiment
+from model import predict_sentiment
 
 # Create the FastAPI instance
 app = FastAPI()
