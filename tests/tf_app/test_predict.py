@@ -1,6 +1,6 @@
 import unittest
 import tensorflow as tf
-from tf_app.predict import custom_standardization, load_model
+from tf_app.model import custom_standardization, load_model
 
 class TestPredict(unittest.TestCase):
 
