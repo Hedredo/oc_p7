@@ -1,8 +1,8 @@
-from typing import Union, Optional
+from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
-import mlflow.tensorflow
 import tensorflow as tf
+from model import load_model
 
 @tf.keras.utils.register_keras_serializable(package="custom_text_func", name="custom_standardization")
 def custom_standardization(tensor):
@@ -14,8 +14,7 @@ def custom_standardization(tensor):
     return tf.strings.strip(tensor)  # strip leading and trailing spaces
 
 # Load the model
-model_path = "./mlflow/689416981458083287/b5efda2cee954ff1a88923f357bc0525/artifacts/model"
-model = mlflow.tensorflow.load_model(model_path) # Load the model with the MLflow Keras API
+model = load_model() # Assign the function model_path argument with the another model if needed
 
 # Create the FastAPI instance
 app = FastAPI()
@@ -24,15 +23,16 @@ app = FastAPI()
 class TextData(BaseModel):
     text: str
 
-
 # Define the GET request
 @app.get("/")
-def read_root() -> Union[str, dict]:
-    return {"Hello": "World"}
+def read_root() -> Union[dict, str]:
+    return {"message": "Welcome to the Sentiment Analysis API!"}
 
 @app.post("/predict")
 def predict(data: TextData) -> dict:
+    text = data.text
     # Make the prediction
-    prediction = model.predict(tf.constant([data.text]))
-    label = "positive" if prediction[0][0] > 0.5 else "negative"
-    return {"prediction": label, "probability": float(prediction[0][0])}
+    probability = model.predict(tf.constant([text]))
+    sentiment = "positive" if probability[0][0] > 0.5 \
+        else ("negative" if probability[0][0] < 0.5 else "neutral")
+    return {"text": text, "sentiment": sentiment} # "probability": float(prediction[0][0])

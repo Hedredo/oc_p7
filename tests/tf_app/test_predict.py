@@ -15,15 +15,15 @@ class TestPredict(unittest.TestCase):
 
     def test_model_prediction_positive(self):
         input_text = tf.constant(["I love this product!"])
-        prediction = self.model.predict(input_text)
-        label = "positive" if prediction[0][0] > 0.5 else "negative"
-        self.assertEqual(label, "positive")
+        probability = self.model.predict(input_text)
+        sentiment = "positive" if probability[0][0] > 0.5 else "negative"
+        self.assertEqual(sentiment, "positive")
 
     def test_model_prediction_negative(self):
         input_text = tf.constant(["I hate this product!"])
-        prediction = self.model.predict(input_text)
-        label = "positive" if prediction[0][0] > 0.5 else "negative"
-        self.assertEqual(label, "negative")
+        probability = self.model.predict(input_text)
+        sentiment = "positive" if probability[0][0] > 0.5 else "negative"
+        self.assertEqual(sentiment, "negative")
         
 
 if __name__ == '__main__':

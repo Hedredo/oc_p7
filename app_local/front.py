@@ -105,7 +105,7 @@ elif st.session_state.step.value == Step.PREDICT.value:
     # Affiche du texte
     st.write(f"Tweet entered: {st.session_state.text}")
     st.write("Model computing the sentiment of the tweet...")
-    time.sleep(2) # Simulation d'un temps de calcul
+    time.sleep(1) # Ajoute une seconde de délai
 
     # Affiche le résultat de la prédiction
     match prediction:
@@ -138,5 +138,5 @@ elif st.session_state.step.value == Step.PREDICT.value:
 
 # session_state FEEDBACK
 else:
-    st.write("Thank you for your feedback!")
+    st.write("Thank you for your feedback. It will help us to improve the model.")
     st.button("Try another tweet !", on_click=handle_on_click)
