@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Définition du répertoire de travail
-WORKDIR /app
+WORKDIR /light_app
 
 # Copier les dépendances
 COPY requirements.txt .
