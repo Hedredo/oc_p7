@@ -1,0 +1,5 @@
+**TO DO**
+
+-Adapter le code pour qu'il appelle les modules depuis le container
+-Ajouter le container avec le fichier init py dedans et tout le tralala identique à lightapp
+-Ajouter dès que c'est prêt le github action

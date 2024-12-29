@@ -1,5 +1,5 @@
 import unittest
-from container.model import predict_sentiment
+from light_app.model import predict_sentiment
 
 class TestPredict(unittest.TestCase):
 

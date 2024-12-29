@@ -1,8 +1,6 @@
 import unittest
-import os
-import mlflow.tensorflow
 import tensorflow as tf
-from predict import custom_standardization, load_model
+from tf_app.predict import custom_standardization, load_model
 
 class TestPredict(unittest.TestCase):
 
