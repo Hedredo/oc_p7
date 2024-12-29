@@ -1,11 +1,11 @@
 import unittest
 import tensorflow as tf
-from tf_app.model import custom_standardization, load_model
+from tf_app.model import custom_standardization, set_model
 
 class TestPredict(unittest.TestCase):
 
     def setUp(self):
-        self.model = load_model()
+        self.model = set_model()
 
     def test_custom_standardization(self):
         input_text = tf.constant(["Hello @user! Check out http://example.com"])

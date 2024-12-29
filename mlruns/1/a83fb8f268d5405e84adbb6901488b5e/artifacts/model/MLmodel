@@ -1,0 +1,25 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.15
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.1
+mlflow_version: 2.17.2
+model_size_bytes: 44673
+model_uuid: a27edef0ee844dbd80b81a0f36212dbe
+run_id: a83fb8f268d5405e84adbb6901488b5e
+signature:
+  inputs: '[{"type": "string", "name": "tokenizer with lowercase, alpha and emoji,
+    and no stop words", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int8", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-12-29 14:08:49.869265'
