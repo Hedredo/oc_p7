@@ -16,6 +16,7 @@ def custom_standardization(tensor):
     tensor = tf.strings.lower(tensor)  # lowercase
     tensor = tf.strings.regex_replace(tensor, r"@\w+", " ")  # strip mentions
     tensor = tf.strings.regex_replace(tensor, r"http\S+|www\S+", " ")  # strip urls
+    tensor = tf.strings.regex_replace(tensor, r"#\w+", " ")  # strip hashtags
     tensor = tf.strings.regex_replace(tensor, r"[^\w\s\d]", " ")  # strip punctuation
     tensor = tf.strings.regex_replace(tensor, r"\s{2,}", " ")  # strip multiple spaces
     return tf.strings.strip(tensor)  # strip leading and trailing spaces
@@ -59,6 +60,49 @@ class TextVectorizer(tf.keras.layers.Layer):
             "vocabulary": self.vocabulary,
         })
         return config
+
+
+def show_nums_axes(ax, orient='v', fmt='.0g', stacked=False):
+    """
+    Affiche les valeurs numériques sur les barres d'un graphique à barres.
+
+    Args:
+        ax (matplotlib.axes.Axes): L'axe du graphique.
+        fmt (str, optional): Format d'affichage des nombres
+        orient (str, optional): L'orientation des barres. 'v' pour vertical (par défaut), 'h' pour horizontal.
+        stacked (bool, optionnal): S'adapte pour un barstackedplot
+
+    Returns:
+        None
+    """
+    # Error management
+    if orient not in ['h', 'v']:
+        raise ValueError("orient doit être égal à 'h' ou 'v si spécifié")
+    try:
+        format(-10.5560, fmt)
+    except ValueError as e:
+        raise f"{e}: le format spécifié dans fmt n'est pas correct."
+    if not isinstance(stacked, bool):
+        raise ValueError("stacked doit être un booléen")
+    # Body
+    for p in ax.patches:
+        width, height = p.get_width(), p.get_height()
+        x, y = p.get_xy()
+        if orient == 'v':
+            if not stacked:
+                ax.annotate(f'{height:{fmt}}' if height!=0 else '',
+                            (x + width / 2., height), ha='center', va='bottom')
+            else:
+                ax.annotate(f'{height:{fmt}}', (x + width-4, y + height/2),
+                            fontsize=10, fontweight='bold', ha='center', va='top')
+        else:
+            if not stacked:
+                ax.annotate(f'{width:{fmt}}' if width!=0 else '',
+                            (width, y + height / 2.), ha='left', va='center')
+            else:
+                ax.annotate(f'{width:{fmt}}', (x + width-1, y + height/2),
+                            fontsize=10, fontweight='bold', ha='right', va='center')
+
 
 # Fonctions - Data loading, splitting and preprocessing
 def split_data(df, test_split=0.2, sampling=True, proportion=0.01, stratify=True):

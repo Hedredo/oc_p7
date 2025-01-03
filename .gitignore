@@ -1,8 +1,7 @@
-# Folders
+# Global rules
 __pycache__/
-/data/
-
-# Model
-/mlflow/
 mlruns/
-/mlflow.db
+
+# Local rules
+/data/
+/mlflow/
