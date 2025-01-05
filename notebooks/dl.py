@@ -2,7 +2,6 @@ import tensorflow as tf
 from tensorflow.keras.layers import TextVectorization
 import numpy as np
 from sklearn.model_selection import train_test_split
-from utils import load_splits_from_parquet
 
 # Constantes
 SEED = 314
@@ -60,6 +59,23 @@ class TextVectorizer(tf.keras.layers.Layer):
         })
         return config
 
+def filter_dataset(X_train, X_test, cols):
+    """
+    Filter the columns of the train and test sets
+    """
+    # Define columns to read
+    assert isinstance(cols, list)
+    assert set(cols).issubset(set(X_train.columns)), f"Some column in {cols} not found in the dataframe"
+    assert set(cols).issubset(set(X_test.columns)), f"Some column in {cols} not found in the dataframe"
+
+    # Align the dataframes and reindex in the same order
+    X_train = X_train.filter(cols)
+    X_test = X_test.filter(cols)
+
+    # Return the aligned data with features squeezed to remove the extra dimension if necessary
+    return X_train, X_test
+
+
 def to_tensorflow_dataset(
     col_name,
     path,
@@ -83,13 +99,10 @@ def to_tensorflow_dataset(
     tuple: A tuple containing three TensorFlow datasets (train_ds, val_ds, test_ds).
     """
     # Align the splits with the corpus directly from dataframe
-    X_train, X_test, y_train, y_test = load_splits_from_parquet(
+    X_train, X_test = filter_dataset(
         X_train,
         X_test,
-        y_train,
-        y_test,
-        col_name,
-        path,
+        [col_name],
     )
     X_train_split, X_val_split, y_train_split, y_val_split = train_test_split(
         X_train, y_train, test_size=validation_split, stratify=y_train, random_state=SEED

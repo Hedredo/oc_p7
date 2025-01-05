@@ -75,22 +75,9 @@ def split_data(df, test_split=0.2, sampling=True, proportion=0.01, stratify=True
     # Return the train and test sets
     return X_train.squeeze(), X_test.squeeze(), y_train, y_test
 
-def load_splits_from_parquet(X_train, X_test, cols, path):
+def filter_dataset(X_train, X_test, cols):
     """
-    Load and align train and test splits from a parquet file.
-    This function reads a parquet file containing a corpus and a target column, 
-    aligns the dataframes with the provided train and test splits, and reindexes 
-    them to match the original indices.
-    Parameters:
-    X_train (pd.DataFrame): Training features dataframe.
-    X_test (pd.DataFrame): Testing features dataframe.
-    y_train (pd.Series): Training target series.
-    y_test (pd.Series): Testing target series.
-    col_name (str): The name of the column to be used as features.
-    path (str): The path to the parquet file.
-    Returns:
-    tuple: A tuple containing the aligned and reindexed training features, 
-           testing features, training target, and testing target.
+    Filter the columns of the train and test sets
     """
     # Define columns to read
     assert isinstance(cols, list)
