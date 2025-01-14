@@ -37,3 +37,4 @@
 # Soit en utilisant l'applications Swagger UI en se rendant sur la page web suivante: http://hedredo-sentiment-b4a8fabydkh4hge5.westeurope-01.azurewebsites.net/docs
 #
 # Soit en utilisant l'interface utilisateur Streamlit (dossier ui, script python front_tf.py) dont le code se trouve sur le dépôt GitHub suivant: Hedredo/oc_p7
+#
