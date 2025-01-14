@@ -5,3 +5,4 @@ mlruns/
 # Local rules
 /data/
 /mlflow/
+!mlflow/

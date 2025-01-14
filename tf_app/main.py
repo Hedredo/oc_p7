@@ -4,8 +4,8 @@ from pydantic import BaseModel
 from model import set_model, SpacyTokenizer, custom_standardization_punct
 
 # Load the model & tokenizer
-model = set_model("./model") # Assign the function model_path argument with the another model if needed
-tokenizer = SpacyTokenizer("./spacy_en_core_web_sm")
+model = set_model("./mlflow/15c36d2a681f47219f7b77774ce43838/artifacts/model") # Assign the function model_path argument with the another model if needed
+tokenizer = SpacyTokenizer("./mlflow/5ce076a511c44429b2bcfbf7a02d0779/artifacts/spacy_en_core_web_sm")
 
 # Create the FastAPI instance
 app = FastAPI()
