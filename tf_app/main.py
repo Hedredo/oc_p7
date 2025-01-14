@@ -1,11 +1,11 @@
 from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
-import tensorflow as tf
-from model import set_model, custom_standardization
+from model import set_model, SpacyTokenizer, custom_standardization_punct
 
-# Load the model
-model = set_model() # Assign the function model_path argument with the another model if needed
+# Load the model & tokenizer
+model = set_model("./models/neuralnet") # Assign the function model_path argument with the another model if needed
+tokenizer = SpacyTokenizer("./models/spacy_en_core_web_sm")
 
 # Create the FastAPI instance
 app = FastAPI()
@@ -23,7 +23,7 @@ def read_root() -> Union[dict, str]:
 def predict(data: TextData) -> dict:
     text = data.text
     # Make the prediction
-    probability = model.predict(tf.constant([text]))
+    probability = model.predict(tokenizer.tokenize([text]))
     sentiment = "positive" if probability[0][0] > 0.5 \
         else ("negative" if probability[0][0] < 0.5 else "neutral")
     return {"text": text, "sentiment": sentiment} # "probability": float(prediction[0][0])
