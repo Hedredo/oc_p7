@@ -4,8 +4,8 @@ from pydantic import BaseModel
 from model import set_model, SpacyTokenizer, custom_standardization_punct
 
 # Load the model & tokenizer
-model = set_model("./models/neuralnet") # Assign the function model_path argument with the another model if needed
-tokenizer = SpacyTokenizer("./models/spacy_en_core_web_sm")
+model = set_model("./model") # Assign the function model_path argument with the another model if needed
+tokenizer = SpacyTokenizer("./spacy_en_core_web_sm")
 
 # Create the FastAPI instance
 app = FastAPI()

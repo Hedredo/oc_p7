@@ -5,8 +5,8 @@ from tf_app.model import custom_standardization_punct, set_model, SpacyTokenizer
 class TestPredict(unittest.TestCase):
 
     def setUp(self):
-        self.model = set_model("./models/neuralnet")
-        self.tokenizer = SpacyTokenizer("./models/spacy_en_core_web_sm")
+        self.model = set_model("./model")
+        self.tokenizer = SpacyTokenizer("./spacy_en_core_web_sm")
 
     def test_custom_standardization_punct(self):
         input_text = tf.constant(["Hello check out http://example.com"])
