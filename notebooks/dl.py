@@ -95,6 +95,24 @@ def filter_split_dataset(X_train, X_test, y_train, y_test, cols, validation_spli
     return data
 
 def create_mlflow_dataset(data):
+    """
+    Unpacks the provided data and creates MLflow datasets for training, validation, and testing.
+
+    Args:
+        data (tuple): A tuple containing the following elements:
+            - X_train_split (pd.DataFrame): Training features.
+            - X_val_split (pd.DataFrame): Validation features.
+            - y_train_split (pd.Series): Training targets.
+            - y_val_split (pd.Series): Validation targets.
+            - X_test (pd.DataFrame): Testing features.
+            - y_test (pd.Series): Testing targets.
+
+    Returns:
+        tuple: A tuple containing the following MLflow datasets:
+            - train_mlflow: MLflow dataset for training.
+            - val_mlflow: MLflow dataset for validation.
+            - test_mlflow: MLflow dataset for testing.
+    """
     # Unpack the data and create the datasets
     X_train_split, X_val_split, y_train_split, y_val_split, X_test, y_test = data
     train = X_train_split.assign(target=y_train_split)
@@ -147,6 +165,23 @@ def to_tensorflow_dataset(
     return train_ds, val_ds, test_ds
 
 def log_dataset_info(X_train, y_train, X_val, y_val, X_test, y_test):
+    """
+    Logs information about the provided datasets by saving them as CSV files and recording them as artifacts in MLflow.
+
+    Parameters:
+    X_train (array-like): Training feature dataset.
+    y_train (array-like): Training target dataset.
+    X_val (array-like): Validation feature dataset.
+    y_val (array-like): Validation target dataset.
+    X_test (array-like): Test feature dataset.
+    y_test (array-like): Test target dataset.
+
+    The function performs the following steps:
+    1. Creates a directory named 'datasets' if it does not already exist.
+    2. Saves each dataset (X_train, y_train, X_val, y_val, X_test, y_test) as a CSV file in the 'datasets' directory.
+    3. Logs each CSV file as an artifact in MLflow.
+    4. Logs the sizes of the training, validation, and test datasets as parameters in MLflow.
+    """
     # Créer un répertoire temporaire pour enregistrer les datasets
     os.makedirs("datasets", exist_ok=True)
 
@@ -173,6 +208,16 @@ def log_dataset_info(X_train, y_train, X_val, y_val, X_test, y_test):
 
 # get the loss by epoch
 def plot_loss(history):
+    """
+    Plots the training and validation loss by epoch.
+
+    Parameters:
+    history (History): A History object returned by the fit method of a Keras model. 
+                       It contains the training and validation loss values for each epoch.
+
+    Returns:
+    matplotlib.axes._subplots.AxesSubplot: The plot of the training and validation loss by epoch.
+    """
     # Plot the loss by epoch
     history_df = pd.DataFrame(history.history)
     plot = history_df.loc[:, ["loss", "val_loss"]].plot()

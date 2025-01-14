@@ -14,6 +14,10 @@ Ce projet a été réalisé en plusieurs étapes pour démontrer les avantages d
 9. Un script avec une commande CURL pour tester l'API.
 
 
+## Suivi des expérimentations de modélisation
+Tout le suivi de la modélisation a été faite avec MLFlow. Pour visualiser les expériences et les métriques de chaque modèle testé, il suffit de charger avec mlflow le fichier mlflow.db situé à la racine du projet.
+Une synthèse des résultats se trouve sur le notebook adv_bert_model.ipynb.
+
 ## Déploiement du projet sur le cloud
 L'API de production est déployée sur une instance AWS EC2. Pour tester l'API de production, il suffit de se rendre sur l'URL suivante : hedredo-sentiment-b4a8fabydkh4hge5.westeurope-01.azurewebsites.net
 
@@ -31,7 +35,7 @@ oc_p7/
 |   ├── exploration.ipynb # Notebook pour l'analyse exploratoire des données et la préparation des données de test et d'entraînement
 |   ├── ml_model.ipynb # Notebook de modélisation pour l'entraînement du modèle de Machine Learning
 |   ├── nn_model.ipynb # Notebook de modélisation pour l'entraînement du modèle de Deep Learning
-|   ├── adv_model.ipynb # Notebook pour le fine-tuning du modèle d'un modèle BERT
+|   ├── adv_bert_model.ipynb # Notebook pour le fine-tuning du modèle d'un modèle BERT
 |   ├── register_serializable.ipynb # Notebook pour automatiser l'enregistrement des fonctions sérialisables pour KERAS
 |   ├── func.py # Script python qui contient les fonctions sérialisables pour KERAS identique au notebook register_serializable.ipynb
 |   ├── dl.py # Script python pour les fonctions relatives aux modèles de Deep Learning
